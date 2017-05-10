@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class SPSchema {
 	
 	private static String ID = new String();
-	private static SPSchema schema = new SPSchema();
+	private static SPSchema schema = new SPSchema();	
 	
 	private ISPTime time = new ISPTime() {
 		
@@ -31,22 +31,22 @@ public class SPSchema {
 		
 		@Override
 		public void setTime(int[][] time) {
-			this.time = time;
+			this.time = time; //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
 		public void setDays(boolean[] days) {
-			this.days = days;
+			this.days = days; //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
 		public int[][] getTime() {
-			return this.time;
+			return this.time; //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
 		public boolean[] getDays() {
-			return this.days;
+			return this.days; //For preexisting SP, set once during object creation from data fetched from database
 		}
 	};
 	
@@ -56,13 +56,13 @@ public class SPSchema {
 		
 		@Override
 		public void setSkills(ArrayList<String> skills) {
-			this.skills.addAll(skills);
+			this.skills.addAll(skills); //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
 		public void setSkill(String skill) {
 			if(!this.skills.contains(skill))
-				this.skills.add(skill);
+				this.skills.add(skill); //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
@@ -94,13 +94,13 @@ public class SPSchema {
 		public void setName(String first, String last) {
 			this.first = first;
 			this.last = last;
-			this.name = first + " " + last;
+			this.name = first + " " + last; //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
 		public void setGovtID(String type, String ID) {
 			this.gType = type;
-			this.gID = ID;
+			this.gID = ID; //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
@@ -108,7 +108,7 @@ public class SPSchema {
 			this.dob = date + "-" + month + "-" + year;
 			LocalDate dob = LocalDate.parse(year+"-"+month+"-"+date);
 			LocalDate cur = LocalDate.now();
-			this.age = Period.between(dob, cur).getYears();
+			this.age = Period.between(dob, cur).getYears(); //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
@@ -118,7 +118,7 @@ public class SPSchema {
 			this.state = state;
 			this.country = country;
 			this.pincode = pin;
-			this.address = area + ",\n" + city + ",\n" + state + ",\n" + country + ",\n" + pin + ".";
+			this.address = area + ",\n" + city + ",\n" + state + ",\n" + country + ",\n" + pin + "."; //For preexisting SP, set once during object creation from data fetched from database
 		}
 		
 		@Override
@@ -192,6 +192,33 @@ public class SPSchema {
 		}
 	};
 	
+	ISPTimesheet timesheet = new ISPTimesheet() {
+		
+		@Override
+		public int getHoursWorked(int day, int month, int year) {
+			// TODO Fetch from timesheet object
+			return 0;
+		}
+		
+		@Override
+		public int getDaysWorked(int month1, int month2, int year) {
+			// TODO Fetch from timesheet object
+			return 0;
+		}
+		
+		@Override
+		public int getDaysWorked(int month, int year) {
+			// TODO fetch data base
+			return 0;
+		}
+		
+		@Override
+		public int getDaysWorked(int year) {
+			// TODO Fetch from timesheet object
+			return 0;
+		}
+	};
+	
 	private SPSchema() {
 		
 	}
@@ -214,5 +241,9 @@ public class SPSchema {
 	
 	ISPProfile getProfile() {
 		return this.profile;
+	}
+	
+	ISPTimesheet getTimesheet() {
+		return this.timesheet;
 	}
 }
